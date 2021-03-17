@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TODO список</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            if ($('#desc').val() === '') {
+                alert("Для добавления задания, необходимо написать само задание.");
+                return false;
+            }
+            return true;
+        }
+
+        function addTask() {
+            if (validate()) {
+                //todo отправялть запрос в базу.
+                var desc = $('#desc').val();
+                $('#table tr:last').after('<tr><td>' + name + '</td><td>' + surename + '</td><td>' + sex + '</td><td>' + desc + '</td></tr>');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h1>TODO список</h1>
+
+    <form>
+        <div class="form-group">
+            <label for="desc">Добавить задание</label>
+            <textarea class="form-control" rows="5" id="desc"></textarea>
+        </div>
+    </form>
+    <button type="submit" class="btn btn-default" onclick="addTask()">Добавить</button>
+
+    <table class="table" id='table'>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Задание</th>
+                <th>Дата создания</th>
+                <th>Готово</th>
+            </tr>
+        </thead>
+        <tr>
+        <tr>
+    </table>
+</div>
+
+
+</body>
+</html>
