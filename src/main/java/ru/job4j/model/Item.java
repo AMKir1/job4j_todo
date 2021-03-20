@@ -16,12 +16,26 @@ public class Item {
 
     public Item(){}
 
+    public Item(String description) {
+        this.description = description;
+    }
+
     public Item(long id, String description, Timestamp created, boolean done) {
         this.id = id;
         this.description = description;
         this.created = created;
         this.done = done;
     }
+
+    public Item(String description, Timestamp created, boolean done) {
+        this.description = description;
+        this.created = created;
+        this.done = done;
+    }
+
+
+
+
 
     public long getId() {
         return id;
