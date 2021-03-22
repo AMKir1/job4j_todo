@@ -1,7 +1,7 @@
 package ru.job4j.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.job4j.hibernate.Hibernate;
+import ru.job4j.repository.ItemRepository;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,14 +14,14 @@ public class GetItemServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Hibernate hb = new Hibernate();
-        ObjectMapper mapper = new ObjectMapper();
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("json");
-        if(req.getParameter("done").equals("true")) {
-            resp.getWriter().write(mapper.writeValueAsString(hb.allItems()));
+        ItemRepository repository = new ItemRepository();
+        ObjectMapper mapper = new ObjectMapper();
+        if (req.getParameter("done").equals("true")) {
+            resp.getWriter().write(mapper.writeValueAsString(repository.all()));
         } else {
-            resp.getWriter().write(mapper.writeValueAsString(hb.allNotDoneItems()));
+            resp.getWriter().write(mapper.writeValueAsString(repository.allNotDoneItems()));
         }
     }
 }

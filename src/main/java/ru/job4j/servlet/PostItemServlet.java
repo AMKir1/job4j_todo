@@ -1,7 +1,10 @@
 package ru.job4j.servlet;
 
-import ru.job4j.hibernate.Hibernate;
+
+import ru.job4j.model.User;
+import ru.job4j.repository.ItemRepository;
 import ru.job4j.model.Item;
+import ru.job4j.repository.UserRepository;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +19,18 @@ public class PostItemServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Hibernate hb = new Hibernate();
+        ItemRepository repository = new ItemRepository();
+        UserRepository userRepository = new UserRepository();
+        User currentUser = userRepository.findByLogin(req.getParameter("user"));
         long id = Long.parseLong(req.getParameter("id"));
         if(id == 0) {
-            hb.add(new Item(req.getParameter("desc"), new Timestamp(System.currentTimeMillis()), false));
+            Item item = new Item(req.getParameter("desc"), new Timestamp(System.currentTimeMillis()), false);
+            if(currentUser != null) {
+                item.setUser(currentUser);
+            }
+            repository.add(item);
         } else {
-            Item item = hb.findById(Long.parseLong(req.getParameter("id")));
+            Item item = repository.findById(Long.parseLong(req.getParameter("id")));
             if(req.getParameter("desc") != null) {
                 item.setDescription(req.getParameter("desc"));
             }
@@ -33,7 +42,7 @@ public class PostItemServlet extends HttpServlet {
             } else {
                 item.setDone(false);
             }
-            hb.update(item);
+            repository.update(item);
         }
     }
 }

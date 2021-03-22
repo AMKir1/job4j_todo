@@ -4,11 +4,10 @@ import ru.job4j.model.Item;
 
 import java.util.List;
 
-public interface Store {
-    Item add(Item item);
-    Item findById(long id);
-    Item update(Item item);
-    void delete(Item item);
-    List<Item> allNotDoneItems();
-    List<Item> allItems();
+public interface Store<T> {
+    T add(T t);
+    T findById(long id);
+    T update(T t);
+    void delete(T t);
+    List<T> all();
 }

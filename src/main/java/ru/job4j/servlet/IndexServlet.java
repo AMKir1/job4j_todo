@@ -1,6 +1,5 @@
 package ru.job4j.servlet;
 
-import ru.job4j.hibernate.Hibernate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,8 +11,9 @@ import java.io.IOException;
 public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Hibernate hb = new Hibernate();
-        req.setAttribute("items", hb.allItems());
-        req.getRequestDispatcher("/").forward(req, resp);
+        if(req.getSession(false ) == null) {
+            req.setAttribute("user", req.getSession().getAttribute("user"));
+        }
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 }

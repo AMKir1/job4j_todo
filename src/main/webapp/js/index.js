@@ -12,7 +12,8 @@ function updateTable() {
     }).done(function (items) {
         $('#table tbody').html("<tr></tr>");
         $.each(items, function (i, item) {
-            var row = "<tr><td>" + item.id + "</td><td>" + item.description + "</td><td>" + new Date(item.created).toLocaleString("ru", getDateOptions()) + "</td>";
+            console.log(item);
+            var row = "<tr><td>" + item.id + "</td><td>" + item.user.name + "</td><td>" + item.description + "</td><td>" + new Date(item.created).toLocaleString("ru", getDateOptions()) + "</td>";
             row += item.done ?
                 "<td><div class='form-check form-switch'><input class='form-check-input' onclick='checkDone(this)' type='checkbox' id='" + item.id + "' checked></div></td>" :
                 "<td><div class='form-check form-switch'><input class='form-check-input' onclick='checkDone(this)' type='checkbox' id='" + item.id + "'></div></td>";
@@ -21,10 +22,6 @@ function updateTable() {
         })
     })
 }
-
-$("#addbtn").click(function () {
-    addTask();
-});
 
 function checkDone(item) {
     $.ajax({
@@ -42,6 +39,11 @@ function checkDone(item) {
 }
 
 function validate() {
+
+    if($('#username').length == 0) {
+        $('#alert').html(alertBody("Для добавления задания, необходимо авторизоваться на сайте."));
+        return false;
+    }
     if ($('#desc').val() === '') {
         $('#alert').html(alertBody("Для добавления задания, необходимо написать задание."));
         return false;
@@ -58,12 +60,13 @@ function addTask() {
                 id: 0,
                 desc: $('#desc').val(),
                 created: null,
-                done: false
+                done: false,
+                user: $('#username')[0].innerText
             }
         }).done(function () {
             updateTable();
-        }).fail(function () {
-            alert("Не удалось добавить задание.");
+        }).fail(function (message) {
+            alert(message);
         });
     }
 }
@@ -81,4 +84,40 @@ function getDateOptions(){
 
 function alertBody(message) {
     return '<div class="alert alert-primary alert-dismissible fade show" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>';
+}
+
+function getLogin() {
+    if(!$('.content').hasClass("visually-hidden")) {
+        $('.content').addClass("visually-hidden");
+    }
+    if(!$('.reg').hasClass("visually-hidden")) {
+        $('.reg').addClass("visually-hidden");
+    }
+    if($('.login').hasClass("visually-hidden")) {
+        $(".login").removeClass("visually-hidden");
+    }
+}
+
+function getReg() {
+    if(!$('.content').hasClass("visually-hidden")) {
+        $('.content').addClass("visually-hidden");
+    }
+    if(!$('.login').hasClass("visually-hidden")) {
+        $('.login').addClass("visually-hidden");
+    }
+    if($('.reg').hasClass("visually-hidden")) {
+        $(".reg").removeClass("visually-hidden");
+    }
+}
+
+function getContent() {
+    if(!$('.login').hasClass("visually-hidden")) {
+        $('.login').addClass("visually-hidden");
+    }
+    if(!$('.reg').hasClass("visually-hidden")) {
+        $('.reg').addClass("visually-hidden");
+    }
+    if($('.content').hasClass("visually-hidden")) {
+        $(".content").removeClass("visually-hidden");
+    }
 }
