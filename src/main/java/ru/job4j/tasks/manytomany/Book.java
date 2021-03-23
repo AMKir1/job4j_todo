@@ -1,4 +1,4 @@
-package ru.job4j.manytomany;
+package ru.job4j.tasks.manytomany;
 
 import javax.persistence.*;
 import java.util.Objects;

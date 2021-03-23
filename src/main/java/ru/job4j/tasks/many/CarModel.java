@@ -1,43 +1,32 @@
-package ru.job4j.manytomany;
+package ru.job4j.tasks.many;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "authors")
-public class Author {
-
+@Table(name = "models")
+public class CarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Book> books = new ArrayList<>();
-
-    public Author() {
+    public CarModel() {
     }
 
-    public Author(long id, String name) {
+    public CarModel(String name) {
+        this.name = name;
+    }
+
+    public CarModel(long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public static Author of(String name) {
-        Author author = new Author();
-        author.setName(name);
-        return author;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void addBook(Book book) {
-        this.books.add(book);
+    public static ru.job4j.tasks.many.CarModel of(String name) {
+        ru.job4j.tasks.many.CarModel model = new ru.job4j.tasks.many.CarModel();
+        model.name = name;
+        return model;
     }
 
     public long getId() {
@@ -58,7 +47,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{"
+        return "Car{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + '}';
@@ -68,9 +57,9 @@ public class Author {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Author author = (Author) o;
-        return id == author.id &&
-                Objects.equals(name, author.name);
+        ru.job4j.tasks.many.CarModel carModel = (ru.job4j.tasks.many.CarModel) o;
+        return id == carModel.id &&
+                Objects.equals(name, carModel.name);
     }
 
     @Override

@@ -20,13 +20,13 @@
         <mapping class="ru.job4j.model.User" />
         <mapping class="ru.job4j.model.Category" />
 
-        <mapping class="ru.job4j.many.CarBrand" />
-        <mapping class="ru.job4j.many.CarModel" />
+<!--        <mapping class="ru.job4j.tasks.many.CarBrand" />-->
+<!--        <mapping class="ru.job4j.tasks.many.CarModel" />-->
 
-        <mapping class="ru.job4j.manytomany.Author" />
-        <mapping class="ru.job4j.manytomany.Book" />
+<!--        <mapping class="ru.job4j.tasks.manytomany.Author" />-->
+<!--        <mapping class="ru.job4j.tasks.manytomany.Book" />-->
 
-        <mapping class="ru.job4j.lazy.Brand" />
-        <mapping class="ru.job4j.lazy.Model" />
+<!--        <mapping class="ru.job4j.tasks.lazy.Brand" />-->
+<!--        <mapping class="ru.job4j.tasks.lazy.Model" />-->
     </session-factory>
 </hibernate-configuration>
