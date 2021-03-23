@@ -28,7 +28,7 @@
 
     <div class="reg">
         <div class="float-end">
-            <form action="<%=request.getContextPath()%>/index.do" method="get"><button type="submit" class="btn btn-primary float-end"> Отмена</button></form>
+            <form action="<%=request.getContextPath()%>/index" method="get"><button type="submit" class="btn btn-primary float-end"> Отмена</button></form>
         </div>
         <br><br>
         <div class="card" style="width: 100%">

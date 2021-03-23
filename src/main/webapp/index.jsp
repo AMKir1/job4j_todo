@@ -144,8 +144,23 @@
                     <form>
                         <div class="form-group">
                             <label for="desc">Описание</label>
-                            <br>
+                            <br><br>
                             <textarea class="form-control" rows="5" id="desc" name="desc"></textarea>
+                            <br><br>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-3" style="font-weight: 900">Категории:</label>
+                                <div class="col-sm-5">
+                                    <c:forEach items="${categories}" var="category">
+                                        <div class="form-check">
+                                            <div class='form-check form-switch'><input class='form-check-input catId' value='${category.id}' type='checkbox' id='flex'>
+                                            <label class="form-check-label" for="flex">
+                                                ${category.name}
+                                            </label>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
                         </div>
                         <br>
                         <button type="button" class="btn btn-primary" onclick="addTask()">Сохранить</button>

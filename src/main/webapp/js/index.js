@@ -10,10 +10,19 @@ function updateTable() {
             done: $("#done")[0].checked
         }
     }).done(function (items) {
+        console.log(items)
         $('#table tbody').html("<tr></tr>");
         $.each(items, function (i, item) {
-            console.log(item);
-            var row = "<tr><td>" + item.id + "</td><td>" + item.user.name + "</td><td>" + item.description + "</td><td>" + new Date(item.created).toLocaleString("ru", getDateOptions()) + "</td>";
+
+            var row = "<tr><td>" + item.id + "</td>";
+            row += "<td>" + item.user.name + "</td>";
+            row += "<td>" + item.description + "</td>";
+            row += "<td><ul class='list-group list-group-flush'>"
+            $.each(item.categories, function(i, c) {
+                row += "<li class='list-group-item'>" + c.name + "</li>";
+            });
+            row += "</ul></td>";
+            row += "<td>" + new Date(item.created).toLocaleString("ru", getDateOptions()) + "</td>";
             row += item.done ?
                 "<td><div class='form-check form-switch'><input class='form-check-input' onclick='checkDone(this)' type='checkbox' id='" + item.id + "' checked></div></td>" :
                 "<td><div class='form-check form-switch'><input class='form-check-input' onclick='checkDone(this)' type='checkbox' id='" + item.id + "'></div></td>";
@@ -61,7 +70,8 @@ function addTask() {
                 desc: $('#desc').val(),
                 created: null,
                 done: false,
-                user: $('#username')[0].innerText
+                user: $('#username')[0].innerText,
+                categories: getCheckedCategories()
             }
         }).done(function () {
             updateTable();
@@ -120,4 +130,14 @@ function getContent() {
     if($('.content').hasClass("visually-hidden")) {
         $(".content").removeClass("visually-hidden");
     }
+}
+
+function getCheckedCategories() {
+    var categories = "";
+    $.each($('.catId'), function(i, category){
+        if(category.checked === true) {
+            categories += category.defaultValue;
+        }
+    })
+    return categories;
 }

@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
                     if (currentUser.getPassword().equals(password)) {
                         HttpSession sc = req.getSession();
                         sc.setAttribute("user", currentUser);
-                        resp.sendRedirect(req.getContextPath() + "/index.do");
+                        resp.sendRedirect(req.getContextPath() + "/index");
                     } else {
                         req.setAttribute("error", "Не верный пароль");
                         req.getRequestDispatcher("/login.jsp").forward(req, resp);

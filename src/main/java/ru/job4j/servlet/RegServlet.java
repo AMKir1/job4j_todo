@@ -35,7 +35,7 @@ public class RegServlet extends HttpServlet {
                     repository.add(user);
                     HttpSession sc = req.getSession();
                     sc.setAttribute("user", user);
-                    resp.sendRedirect(req.getContextPath() + "/index.do");
+                    resp.sendRedirect(req.getContextPath() + "/index");
                 } else {
                     req.setAttribute("error", "Пользователь уже существует");
                     req.getRequestDispatcher("/reg.jsp").forward(req, resp);

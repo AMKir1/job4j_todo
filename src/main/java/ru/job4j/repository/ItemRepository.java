@@ -1,8 +1,12 @@
 package ru.job4j.repository;
 
+import org.hibernate.query.Query;
 import ru.job4j.hibernate.Hibernate;
+import ru.job4j.model.Category;
 import ru.job4j.model.Item;
 import ru.job4j.store.ItemStore;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemRepository implements ItemStore, AutoCloseable {
@@ -33,12 +37,12 @@ public class ItemRepository implements ItemStore, AutoCloseable {
 
     @Override
     public List<Item> all() {
-        return hb.get(s -> s.createQuery("from ru.job4j.model.Item").list());
+        return hb.get(s -> s.createQuery("select distinct i from ru.job4j.model.Item i", ru.job4j.model.Item.class).list());
     }
 
     @Override
     public List<Item> allNotDoneItems() {
-        return hb.get(s -> s.createQuery("from ru.job4j.model.Item where done = false order by created desc").list());
+        return hb.get(s -> s.createQuery("select distinct i from ru.job4j.model.Item i where i.done = false", ru.job4j.model.Item.class).list());
     }
 
     @Override
