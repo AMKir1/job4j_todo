@@ -45,7 +45,7 @@ public class HbmRun {
 
             session.getTransaction().commit();
             session.close();
-        }  catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);

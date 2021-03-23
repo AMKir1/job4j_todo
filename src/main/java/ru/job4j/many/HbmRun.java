@@ -17,13 +17,13 @@ public class HbmRun {
             Session session = sf.openSession();
             session.beginTransaction();
 
-            CarBrand bmw  = CarBrand.of("BMW");
+            CarBrand bmw = CarBrand.of("BMW");
 
             CarModel sedan = CarModel.of("Sedan");
             CarModel cabrio = CarModel.of("Cabrio");
             CarModel gt = CarModel.of("GT");
             CarModel coupe = CarModel.of("Coupe");
-            CarModel granCoupe =CarModel.of("Gran Coupe");
+            CarModel granCoupe = CarModel.of("Gran Coupe");
 
             bmw.addModel(sedan);
             bmw.addModel(cabrio);
@@ -35,7 +35,7 @@ public class HbmRun {
             session.getTransaction().commit();
             session.close();
 
-        }  catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
