@@ -36,6 +36,8 @@
         <mapping class="ru.job4j.tasks.mapping.Driver"/>
 
         <mapping class="ru.job4j.tasks.hql.Candidate"/>
+        <mapping class="ru.job4j.tasks.hql.Base"/>
+        <mapping class="ru.job4j.tasks.hql.Vacancy"/>
 
     </session-factory>
 </hibernate-configuration>

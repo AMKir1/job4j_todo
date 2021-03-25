@@ -10,9 +10,13 @@ public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String name;
     private String experience;
     private double salary;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Base base;
 
     public Candidate() {
     }
@@ -64,6 +68,14 @@ public class Candidate {
         this.salary = salary;
     }
 
+    public Base getBase() {
+        return base;
+    }
+
+    public void setBase(Base base) {
+        this.base = base;
+    }
+
     @Override
     public String toString() {
         return "Candidate{" +
@@ -71,6 +83,7 @@ public class Candidate {
                 ", name='" + name + '\'' +
                 ", experience='" + experience + '\'' +
                 ", salary=" + salary +
+                ", base=" + base +
                 '}';
     }
 

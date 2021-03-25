@@ -16,39 +16,47 @@ public class HbmRun {
             Session session = sf.openSession();
             session.beginTransaction();
 
-            System.out.println("SELECT");
-            Query query1 = session.createQuery("from Candidate");
-            for (Object st : query1.list()) {
-                System.out.println(st);
-            }
+//            System.out.println("SELECT");
+//            Query query1 = session.createQuery("from Candidate");
+//            for (Object st : query1.list()) {
+//                System.out.println(st);
+//            }
+//
+//            System.out.println("SELECT BY ID");
+//            System.out.println(session.createQuery("from Candidate c where c.id = :id")
+//                    .setParameter("id", (long) 2)
+//                    .uniqueResult().toString()
+//            );
+//
+//            System.out.println("SELECT BY NAME");
+//            Query query3 = session.createQuery("from Candidate c  where c.name = :name")
+//                    .setParameter("name", "Jon");
+//            for (Object st : query3.list()) {
+//                System.out.println(st);
+//            }
+//
+//            System.out.println("UPDATE");
+//            session.createQuery("update Candidate c set c.name = :name, c.experience = :experience, c.salary = :salary where c.id = :id")
+//                    .setParameter("name", "Bob")
+//                    .setParameter("experience", "9")
+//                    .setParameter("salary", (double) 100)
+//                    .setParameter("id", (long) 1)
+//                    .executeUpdate();
+//            System.out.println(session.createQuery("from Candidate c  where c.id =" + (long) 1).uniqueResult().toString());
+//
+//            System.out.println("DELETE BY ID");
+//            session.createQuery("delete from Candidate c where c.id = :id")
+//                    .setParameter("id", (long) 3)
+//                    .executeUpdate();
 
-            System.out.println("SELECT BY ID");
-            System.out.println(session.createQuery("from Candidate c where c.id = :id")
-                    .setParameter("id", (long) 2)
-                    .uniqueResult().toString()
-            );
 
-            System.out.println("SELECT BY NAME");
-            Query query3 = session.createQuery("from Candidate c  where c.name = :name")
-                    .setParameter("name", "Jon");
-            for (Object st : query3.list()) {
-                System.out.println(st);
-            }
-
-            System.out.println("UPDATE");
-            session.createQuery("update Candidate c set c.name = :name, c.experience = :experience, c.salary = :salary where c.id = :id")
-                    .setParameter("name", "Bob")
-                    .setParameter("experience", "9")
-                    .setParameter("salary", (double) 100)
+            Candidate c = session.createQuery("Select c from Candidate c " +
+                    "join fetch c.base b " +
+                    "join fetch b.vacancies " +
+                    "where c.id = :id", Candidate.class)
                     .setParameter("id", (long) 1)
-                    .executeUpdate();
-            System.out.println(session.createQuery("from Candidate c  where c.id =" + (long) 1).uniqueResult().toString());
-
-            System.out.println("DELETE BY ID");
-            session.createQuery("delete from Candidate c where c.id = :id")
-                    .setParameter("id", (long) 3)
-                    .executeUpdate();
-
+                    .uniqueResult();
+            System.out.println(c.toString());
 
             session.getTransaction().commit();
             session.close();
